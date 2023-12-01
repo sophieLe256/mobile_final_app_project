@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "368344569775",
+    "firebase_url": "https://mobile-f453c-default-rtdb.firebaseio.com",
+    "project_id": "mobile-f453c",
+    "storage_bucket": "mobile-f453c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:368344569775:android:0f18baa8ed1bbe1441015a",
+        "android_client_info": {
+          "package_name": "com.example.mobile_app_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMjuZvGMVlOB038pSQGuXDz668M_YQRlw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
