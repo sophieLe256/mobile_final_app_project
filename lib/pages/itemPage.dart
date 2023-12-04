@@ -13,7 +13,6 @@ class ItemPage extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-            
               Padding(
                 padding: const EdgeInsets.all(25),
                 child: Row(

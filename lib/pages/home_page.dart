@@ -7,7 +7,6 @@ import 'package:mobile_app_project/widgets/HomeBottomNavBar.dart';
 import 'package:mobile_app_project/widgets/RowItemsWidget.dart';
 import 'package:provider/provider.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -16,6 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   //instance of auth
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -33,17 +33,69 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('AppName'),
         backgroundColor: Colors.blue[100],
-        // leading: Builder(
-        //   builder: (BuildContext context) {
-        //     return IconButton(
-        //       icon: Icon(Icons.menu), // User icon
-        //       onPressed: () {
-        //         Scaffold.of(context)
-        //             .openDrawer(); // Open the drawer on icon click
-        //       },
-        //     );
-        //   },
-        // ),
+        actions: [
+          IconButton(
+            onPressed: signOut,
+            icon: const Icon(
+              Icons.logout,
+              size: 30,
+              color: Color(0xFF475269),
+            ),
+          ),
+        ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(
+              child: Text(
+                'Menu',
+                style: TextStyle(fontSize: 24, color: Colors.white),
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF475269).withOpacity(0.3),
+                    blurRadius: 5,
+                    spreadRadius: 1,
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              title: Text('Women'),
+              onTap: () {
+                // Navigate to Women's shoe types
+                // Replace with your navigation logic
+                Navigator.pop(context); // Close the drawer
+                // Navigate to Women's shoe types screen
+                Navigator.pushNamed(context, '/women_shoes');
+              },
+            ),
+            ListTile(
+              title: Text('Men'),
+              onTap: () {
+                // Navigate to Men's shoe types
+                // Replace with your navigation logic
+                Navigator.pop(context); // Close the drawer
+                // Navigate to Men's shoe types screen
+                Navigator.pushNamed(context, '/men_shoes');
+              },
+            ),
+            ListTile(
+              title: Text('Kids'),
+              onTap: () {
+                // Navigate to Kids' shoe types
+                // Replace with your navigation logic
+                Navigator.pop(context); // Close the drawer
+                // Navigate to Kids' shoe types screen
+                Navigator.pushNamed(context, '/kids_shoes');
+              },
+            ),
+          ],
+        ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -53,35 +105,57 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // GestureDetector(
-                    //   onTap: () {
-                    //     Scaffold.of(context).openDrawer();
-                    //   },
-                    // ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: const Color(0xFF475269).withOpacity(0.3),
-                            blurRadius: 5,
-                            spreadRadius: 1,
-                          ),
-                        ],
-                      ),
-                      child: const Icon(
-                        Icons.sort,
-                        size: 30,
-                        color: Color(0xFF475269),
-                      ),
-                    ),
+                    //       Container(
+                    //         padding: const EdgeInsets.all(8),
+                    //         decoration: BoxDecoration(
+                    //           color: Colors.white,
+                    //           borderRadius: BorderRadius.circular(10),
+                    //           boxShadow: [
+                    //             BoxShadow(
+                    //               color: const Color(0xFF475269).withOpacity(0.3),
+                    //               blurRadius: 5,
+                    //               spreadRadius: 1,
+                    //             ),
+                    //           ],
+                    //         ),
+                    //         child: Icon(
+                    //           Icons.sort,
+                    //           size: 30,
+                    //           color: Color(0xFF475269),
+                    //            onPressed: () {
+                    //   Scaffold.of(context)
+                    //       .openDrawer(); // Open the drawer on icon click
+                    // },
+                    //         ),
+                    //       ),
 
-                    const SizedBox(
-                        width: 10), // Added to separate the containers
+                    // Container(
+                    //   padding: const EdgeInsets.all(8),
+                    //   decoration: BoxDecoration(
+                    //     color: Colors.white,
+                    //     borderRadius: BorderRadius.circular(10),
+                    //     boxShadow: [
+                    //       BoxShadow(
+                    //         color: const Color(0xFF475269).withOpacity(0.3),
+                    //         blurRadius: 5,
+                    //         spreadRadius: 1,
+                    //       ),
+                    //     ],
+                    //   ),
+                    //   child: IconButton(
+                    //     icon: Icon(
+                    //       Icons.sort,
+                    //       size: 30,
+                    //       color: Color(0xFF475269),
+                    //     ),
+                    //     onPressed: () {
+                    //       _scaffoldKey.currentState?.openDrawer();
+                    //     },
+                    //   ),
+                    // ),
+
                     Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
@@ -123,14 +197,6 @@ class _HomePageState extends State<HomePage> {
                             spreadRadius: 1,
                           ),
                         ],
-                      ),
-                      child: IconButton(
-                        onPressed: signOut,
-                        icon: const Icon(
-                          Icons.logout,
-                          size: 30,
-                          color: Color(0xFF475269),
-                        ),
                       ),
                     ),
                   ],

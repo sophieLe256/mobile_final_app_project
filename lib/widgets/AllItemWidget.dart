@@ -17,20 +17,21 @@ class AllItemsWidget extends StatelessWidget {
         for (final Product product in Product.products)
           // for (int i = 1; i <= 8; i++)
           Container(
-              padding: const EdgeInsets.only(left: 15, right: 15),
-              margin: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xFF475269).withOpacity(0.3),
-                    blurRadius: 5,
-                    spreadRadius: 1,
-                  )
-                ],
-              ),
-              child: Column(children: [
+            padding: const EdgeInsets.only(left: 15, right: 15),
+            margin: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF475269).withOpacity(0.3),
+                  blurRadius: 5,
+                  spreadRadius: 1,
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
                 InkWell(
                   onTap: () {
                     Navigator.pushNamed(context, "itemPage");
@@ -47,19 +48,21 @@ class AllItemsWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8),
                   child: Container(
-                      alignment: Alignment.centerLeft,
-                      child: Text(product.name,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF475269),
-                          ))),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      product.name,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF475269),
+                      ),
+                    ),
+                  ),
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "New ${product.category} Shoes",
-                    // product.name,
                     style: TextStyle(
                       fontSize: 13,
                       color: const Color(0xFF475269).withOpacity(0.7),
@@ -71,9 +74,9 @@ class AllItemsWidget extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        "\$55",
-                        style: TextStyle(
+                      Text(
+                        "\$${product.price}",
+                        style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
                             color: Colors.redAccent),
@@ -89,11 +92,13 @@ class AllItemsWidget extends StatelessWidget {
                           color: Colors.white,
                           size: 28,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 )
-              ])),
+              ],
+            ),
+          ),
       ],
     );
   }
