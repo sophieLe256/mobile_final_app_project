@@ -107,55 +107,6 @@ class _HomePageState extends State<HomePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    //       Container(
-                    //         padding: const EdgeInsets.all(8),
-                    //         decoration: BoxDecoration(
-                    //           color: Colors.white,
-                    //           borderRadius: BorderRadius.circular(10),
-                    //           boxShadow: [
-                    //             BoxShadow(
-                    //               color: const Color(0xFF475269).withOpacity(0.3),
-                    //               blurRadius: 5,
-                    //               spreadRadius: 1,
-                    //             ),
-                    //           ],
-                    //         ),
-                    //         child: Icon(
-                    //           Icons.sort,
-                    //           size: 30,
-                    //           color: Color(0xFF475269),
-                    //            onPressed: () {
-                    //   Scaffold.of(context)
-                    //       .openDrawer(); // Open the drawer on icon click
-                    // },
-                    //         ),
-                    //       ),
-
-                    // Container(
-                    //   padding: const EdgeInsets.all(8),
-                    //   decoration: BoxDecoration(
-                    //     color: Colors.white,
-                    //     borderRadius: BorderRadius.circular(10),
-                    //     boxShadow: [
-                    //       BoxShadow(
-                    //         color: const Color(0xFF475269).withOpacity(0.3),
-                    //         blurRadius: 5,
-                    //         spreadRadius: 1,
-                    //       ),
-                    //     ],
-                    //   ),
-                    //   child: IconButton(
-                    //     icon: Icon(
-                    //       Icons.sort,
-                    //       size: 30,
-                    //       color: Color(0xFF475269),
-                    //     ),
-                    //     onPressed: () {
-                    //       _scaffoldKey.currentState?.openDrawer();
-                    //     },
-                    //   ),
-                    // ),
-
                     Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
@@ -184,7 +135,43 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 15),
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        height: 55,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color(0xFF475269).withOpacity(0.3),
+                              blurRadius: 5,
+                              spreadRadius: 1,
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(left: 5),
+                              width: 200,
+                              child: TextFormField(
+                                  decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                hintText: "Search",
+                              )),
+                            ),
+                            const Spacer(),
+                            const Icon(
+                              Icons.search,
+                              size: 27,
+                              color: Color(0xFF475269),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                     Container(
                       padding: const EdgeInsets.all(1),
                       decoration: BoxDecoration(
@@ -203,42 +190,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
 
-              const SizedBox(height: 15),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 15),
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                height: 55,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color(0xFF475269).withOpacity(0.3),
-                      blurRadius: 5,
-                      spreadRadius: 1,
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(left: 5),
-                      width: 300,
-                      child: TextFormField(
-                          decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Search",
-                      )),
-                    ),
-                    const Spacer(),
-                    const Icon(
-                      Icons.search,
-                      size: 27,
-                      color: Color(0xFF475269),
-                    ),
-                  ],
-                ),
-              ),
               const SizedBox(height: 30),
               const RowItemsWidget(),
               const SizedBox(height: 20),
