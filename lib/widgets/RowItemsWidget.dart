@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../pages/DUMMY_PRODUCTS.dart';
+import '../product/DUMMY_PRODUCTS.dart';
 
 // a scrolling parallax effect (horizontal)
 
