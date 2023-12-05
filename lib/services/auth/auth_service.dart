@@ -6,14 +6,14 @@ class AuthService extends ChangeNotifier {
   //instance of auth
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  //instance of firestore
+  //instance of firestorșs
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   //user sign in method
   Future<UserCredential> signInWithEmailAndPassword(
       String email, String password) async {
     try {
-      //sign in
+      //sign ins
       UserCredential userCredential = await _firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
 
