@@ -7,7 +7,8 @@ import 'package:mobile_app_project/product/product_repo.dart';
 import 'package:mobile_app_project/services/auth/auth_service.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'pages/home_page_g.dart';
+import 'pages/home_page.dart';
+import 'pages/home_page_bbb.dart';
 import 'services/auth/login_or_register.dart';
 import 'package:provider/provider.dart';
 
