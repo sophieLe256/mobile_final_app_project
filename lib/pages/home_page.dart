@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AppName'),
+        title: const Text('SoleFusion Hub'),
         backgroundColor: Colors.blue[100],
         actions: [
           IconButton(
@@ -48,9 +48,19 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           children: [
             DrawerHeader(
-              child: Text(
-                'Menu',
-                style: TextStyle(fontSize: 24, color: Colors.white),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 30,
+                    // You can replace the AssetImage with your user's profile picture
+                    backgroundImage: AssetImage('assets/app_img.jpg'),
+                  ),
+                  SizedBox(width: 20),
+                  Text(
+                    'Shop',
+                    style: TextStyle(fontSize: 20, color: Colors.black),
+                  ),
+                ],
               ),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -64,35 +74,115 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            ListTile(
-              title: Text('Women'),
-              onTap: () {
-                // Navigate to Women's shoe types
-                // Replace with your navigation logic
-                Navigator.pop(context); // Close the drawer
-                // Navigate to Women's shoe types screen
-                Navigator.pushNamed(context, '/women_shoes');
-              },
-            ),
-            ListTile(
+            ExpansionTile(
               title: Text('Men'),
-              onTap: () {
-                // Navigate to Men's shoe types
-                // Replace with your navigation logic
-                Navigator.pop(context); // Close the drawer
-                // Navigate to Men's shoe types screen
-                Navigator.pushNamed(context, '/men_shoes');
-              },
+              children: [
+                ListTile(
+                  title: Text('Jordan'),
+                  onTap: () {
+                    // Navigate to Women's Casual Shoes
+                    // Replace with your navigation logic
+                    Navigator.pop(context); // Close the drawer
+                    // Navigate to Women's Casual Shoes screen
+                    Navigator.pushNamed(context, '/women_jordan_shoes');
+                  },
+                ),
+                ListTile(
+                  title: Text('Shoes'),
+                  onTap: () {
+                    // Navigate to Women's Formal Shoes
+                    // Replace with your navigation logic
+                    Navigator.pop(context); // Close the drawer
+                    // Navigate to Women's Formal Shoes screen
+                    Navigator.pushNamed(context, '/women_shoes');
+                  },
+                ),
+                ListTile(
+                  title: Text('Clothing & Accessories'),
+                  onTap: () {
+                    // Navigate to Women's Formal Shoes
+                    // Replace with your navigation logic
+                    Navigator.pop(context); // Close the drawer
+                    // Navigate to Women's Formal Shoes screen
+                    Navigator.pushNamed(context, '/women_clothing');
+                  },
+                ),
+                // Add more subcategories for Women as needed
+              ],
             ),
-            ListTile(
+            ExpansionTile(
+              title: Text('Women'),
+              children: [
+                ListTile(
+                  title: Text('Jordan'),
+                  onTap: () {
+                    // Navigate to Men's Casual Shoes
+                    // Replace with your navigation logic
+                    Navigator.pop(context); // Close the drawer
+                    // Navigate to Men's Casual Shoes screen
+                    Navigator.pushNamed(context, '/men_jordan_shoes');
+                  },
+                ),
+                ListTile(
+                  title: Text('Shoes'),
+                  onTap: () {
+                    // Navigate to Men's Formal Shoes
+                    // Replace with your navigation logic
+                    Navigator.pop(context); // Close the drawer
+                    // Navigate to Men's Formal Shoes screen
+                    Navigator.pushNamed(context, '/men_shoes');
+                  },
+                  // Add more subcategories for Men as needed
+                ),
+                 ListTile(
+                  title: Text('Clothing & Accessories'),
+                  onTap: () {
+                    // Navigate to Men's Formal Shoes
+                    // Replace with your navigation logic
+                    Navigator.pop(context); // Close the drawer
+                    // Navigate to Men's Formal Shoes screen
+                    Navigator.pushNamed(context, '/men_clothing');
+                  },
+                  // Add more subcategories for Men as needed
+                ),
+              ],
+            ),
+            ExpansionTile(
               title: Text('Kids'),
-              onTap: () {
-                // Navigate to Kids' shoe types
-                // Replace with your navigation logic
-                Navigator.pop(context); // Close the drawer
-                // Navigate to Kids' shoe types screen
-                Navigator.pushNamed(context, '/kids_shoes');
-              },
+              children: [
+                ListTile(
+                  title: Text('Jordan'),
+                  onTap: () {
+                    // Navigate to Kids' Boys Shoes
+                    // Replace with your navigation logic
+                    Navigator.pop(context); // Close the drawer
+                    // Navigate to Kids' Boys Shoes screen
+                    Navigator.pushNamed(context, '/kids_jordan_shoes');
+                  },
+                ),
+                ListTile(
+                  title: Text('Shoes'),
+                  onTap: () {
+                    // Navigate to Kids' Girls Shoes
+                    // Replace with your navigation logic
+                    Navigator.pop(context); // Close the drawer
+                    // Navigate to Kids' Girls Shoes screen
+                    Navigator.pushNamed(context, '/kids_shoes');
+                  },
+                  // Add more subcategories for Kids as needed
+                ),
+                 ListTile(
+                  title: Text('Clothing & Accessories'),
+                  onTap: () {
+                    // Navigate to Kids' Girls Shoes
+                    // Replace with your navigation logic
+                    Navigator.pop(context); // Close the drawer
+                    // Navigate to Kids' Girls Shoes screen
+                    Navigator.pushNamed(context, '/kids_clothing');
+                  },
+                  // Add more subcategories for Kids as needed
+                ),
+              ],
             ),
           ],
         ),
@@ -189,7 +279,6 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-
               const SizedBox(height: 30),
               const RowItemsWidget(),
               const SizedBox(height: 20),
