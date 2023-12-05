@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       );
-      Navigator.popAndPushNamed(context, "/");
+      Navigator.popAndPushNamed(context, "homePage");
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

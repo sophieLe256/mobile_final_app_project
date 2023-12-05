@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import '../pages/DUMMY_PRODUCTS.dart';
+import '../product/DUMMY_PRODUCTS.dart';
 import '../widgets/ItemBottomNavBar.dart';
 
 class ItemPage extends StatelessWidget {
@@ -176,14 +176,15 @@ class ItemPage extends StatelessWidget {
                                   height: 35,
                                   width: 35,
                                   alignment: Alignment.center,
-                                  margin: const EdgeInsets.symmetric(horizontal: 5),
+                                  margin:
+                                      const EdgeInsets.symmetric(horizontal: 5),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10),
                                     boxShadow: [
                                       BoxShadow(
-                                        color:
-                                            const Color(0xFF475269).withOpacity(0.3),
+                                        color: const Color(0xFF475269)
+                                            .withOpacity(0.3),
                                         blurRadius: 5,
                                         spreadRadius: 1,
                                       )
@@ -207,7 +208,6 @@ class ItemPage extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: const ItemBottomNavBar(),
-
     );
   }
 }
