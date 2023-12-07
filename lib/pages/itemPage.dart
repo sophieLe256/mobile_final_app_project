@@ -1,13 +1,36 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../product/DUMMY_PRODUCTS.dart';
 import '../widgets/ItemBottomNavBar.dart';
 
 class ItemPage extends StatelessWidget {
-  const ItemPage({super.key});
+  const ItemPage({super.key, required this.product});
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
+    Future<void> addFavorite({required Product product}) async {
+      final User? user = FirebaseAuth.instance.currentUser;
+      if (product.favorite.contains(user!.uid)) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            duration: Duration(seconds: 1),
+            content: Text("Product is already in favorites!")));
+      } else {
+        product.favorite.add(user.uid);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            duration: Duration(seconds: 1),
+            content: Text("Product is added to favorites.")));
+      }
+      await FirebaseFirestore.instance
+          .collection('products')
+          .doc(product.id)
+          .update({
+        "favorite": FieldValue.arrayUnion([user.uid])
+      });
+    }
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -56,10 +79,13 @@ class ItemPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: const Icon(
-                        Icons.favorite,
-                        size: 30,
+                      child: IconButton(
+                        icon: Icon(Icons.favorite),
+                        iconSize: 30,
                         color: Colors.redAccent,
+                        onPressed: () {
+                          addFavorite(product: product);
+                        },
                       ),
                     ),
                   ],
@@ -86,7 +112,7 @@ class ItemPage extends StatelessWidget {
                             )
                           ]),
                     ),
-                    Image.asset("assets/1.png",
+                    Image.asset(product.img,
                         height: 300, width: 280, fit: BoxFit.contain),
                   ],
                 ),
@@ -112,11 +138,11 @@ class ItemPage extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "New Nike Shoes",
+                          product.name,
                           style: TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
@@ -124,7 +150,7 @@ class ItemPage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "\$55",
+                          "\$${product.price}",
                           style: TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.w500,
@@ -148,16 +174,16 @@ class ItemPage extends StatelessWidget {
                         onRatingUpdate: (index) {},
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    const Text(
-                      "Premium suede and Jordan Brand's signature Formula 23 foam come together to give you an extra luxurious (and extra cozy) AJ1. You don't need to play when it comes to choosing style or comfort with this one—which is nice, 'cause you deserve both.",
+                    const SizedBox(height: 12),
+                    Text(
+                      product.description,
                       style: TextStyle(
                         color: Color(0xFF475269),
                         fontSize: 17,
                       ),
                       textAlign: TextAlign.justify,
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 12),
                     Row(
                       children: [
                         const Text(
@@ -168,7 +194,7 @@ class ItemPage extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 8),
                         Row(
                           children: [
                             for (int i = 5; i < 12; i++)
@@ -207,7 +233,9 @@ class ItemPage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const ItemBottomNavBar(),
+      bottomNavigationBar: ItemBottomNavBar(
+        product: product,
+      ),
     );
   }
 }

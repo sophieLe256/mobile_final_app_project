@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_app_project/pages/itemPage.dart';
 import '../product/DUMMY_PRODUCTS.dart';
 import 'package:mobile_app_project/product/bloc/product_bloc.dart';
 import 'package:mobile_app_project/product/product_repo.dart';
@@ -57,7 +58,10 @@ class ProductCard extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              Navigator.pushNamed(context, "itemPage");
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ItemPage(product: product)));
             },
             child: Padding(
               padding: const EdgeInsets.all(10),

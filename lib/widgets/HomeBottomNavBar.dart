@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
+import '../product/DUMMY_PRODUCTS.dart';
 
 import 'BottomCartSheet.dart';
 import 'BottomFavoriteSheet.dart';
@@ -37,7 +38,7 @@ class HomeBottomnavBar extends StatelessWidget {
                       elevation: 8,
                       cornerRadius: 16,
                       builder: (context, state) {
-                        return const BottomCartSheet();
+                        return BottomCartSheet();
                       });
                 },
               );
@@ -63,7 +64,7 @@ class HomeBottomnavBar extends StatelessWidget {
                     elevation: 8,
                     cornerRadius: 16,
                     builder: (context, state) {
-                      return const BottomFavoriteSheet();
+                      return BottomFavoriteSheet();
                     },
                   );
                 },

@@ -12,6 +12,9 @@ class Product extends Equatable {
   final int reviewCount;
   final String seller;
   final bool isRecommended;
+  final List<String> favorite;
+  final List<String> cart;
+  final String id;
 
   const Product({
     required this.isRecommended,
@@ -24,22 +27,48 @@ class Product extends Equatable {
     required this.price,
     required this.description,
     required this.seller,
+    required this.favorite,
+    required this.id,
+    required this.cart,
   });
 
-  static Product fromSnapshot(DocumentSnapshot doc) {
-    Product product = Product(
-        quantity: doc["quantity"],
-        reviewTotal: doc["reviewTotal"],
-        reviewCount: doc["reviewCount"],
-        name: doc["name"],
-        category: doc["category"],
-        img: doc["img"],
-        price: doc["price"],
-        description: doc["description"],
-        seller: doc["seller"],
-        isRecommended: doc["isRecommended"]);
-    return product;
+  static Product fromSnapshot(DocumentSnapshot<Map<String, dynamic>> doc) {
+    Map<String, dynamic> data = doc.data() ?? {};
+    return Product(
+      quantity: data['quantity'] ?? 0,
+      reviewTotal: data['reviewTotal'] ?? 0,
+      reviewCount: data['reviewCount'] ?? 0,
+      name: data['name'] ?? '',
+      category: data['category'] ?? '',
+      img: data['img'] ?? '',
+      price: (data['price'] ?? 0.0).toDouble(),
+      description: data['description'] ?? '',
+      seller: data['seller'] ?? '',
+      isRecommended: data['isRecommended'] ?? false,
+      favorite: data['favorite'] == null
+          ? []
+          : data["favorite"].map<String>((i) => i as String).toList(),
+      id: data["id"] ?? '',
+      cart: data['cart'] == null
+          ? []
+          : data["cart"].map<String>((i) => i as String).toList(),
+    );
   }
+
+  // static Product fromSnapshot(DocumentSnapshot doc) {
+  //   Product product = Product(
+  //       quantity: doc["quantity"],
+  //       reviewTotal: doc["reviewTotal"],
+  //       reviewCount: doc["reviewCount"],
+  //       name: doc["name"],
+  //       category: doc["category"],
+  //       img: doc["img"],
+  //       price: doc["price"],
+  //       description: doc["description"],
+  //       seller: doc["seller"],
+  //       isRecommended: doc["isRecommended"]);
+  //   return product;
+  // }
 
   @override
   List<Object?> get props => [
@@ -52,6 +81,8 @@ class Product extends Equatable {
         reviewTotal,
         description,
         seller,
+        favorite,
+        cart,
       ];
 
   static List<Product> products = [
@@ -67,6 +98,9 @@ class Product extends Equatable {
       reviewTotal: 0,
       seller: "Market",
       isRecommended: false,
+      favorite: [],
+      id: '',
+      cart: [],
     ),
     Product(
       name: 'Air Jordan 1 Mid SE',
@@ -80,6 +114,9 @@ class Product extends Equatable {
       reviewTotal: 0,
       seller: "Market",
       isRecommended: false,
+      favorite: [],
+      id: '',
+      cart: [],
     ),
     Product(
       name: 'Nike Shoes 3',
@@ -93,6 +130,9 @@ class Product extends Equatable {
       reviewTotal: 0,
       seller: "Market",
       isRecommended: false,
+      favorite: [],
+      id: '',
+      cart: [],
     ),
     Product(
       name: 'Nike Shoes 4',
@@ -106,6 +146,9 @@ class Product extends Equatable {
       reviewTotal: 0,
       seller: "Market",
       isRecommended: false,
+      favorite: [],
+      id: '',
+      cart: [],
     ),
     Product(
       name: 'Nike Shoes 5',
@@ -119,6 +162,9 @@ class Product extends Equatable {
       reviewTotal: 0,
       seller: "Market",
       isRecommended: false,
+      favorite: [],
+      id: '',
+      cart: [],
     ),
     Product(
       name: 'Nike Court Borough Low',
@@ -132,6 +178,9 @@ class Product extends Equatable {
       reviewTotal: 0,
       seller: "Market",
       isRecommended: false,
+      favorite: [],
+      id: '',
+      cart: [],
     ),
     Product(
       name: 'Nike Shoes 7',
@@ -145,6 +194,9 @@ class Product extends Equatable {
       reviewTotal: 0,
       seller: "Market",
       isRecommended: false,
+      favorite: [],
+      id: '',
+      cart: [],
     ),
     Product(
       name: 'Nike Shoes 8',
@@ -158,6 +210,9 @@ class Product extends Equatable {
       reviewTotal: 0,
       seller: "Market",
       isRecommended: false,
+      favorite: [],
+      id: '',
+      cart: [],
     ),
     Product(
       name: 'Nike Shoes 9',
@@ -171,6 +226,9 @@ class Product extends Equatable {
       reviewTotal: 0,
       seller: "Market",
       isRecommended: false,
+      favorite: [],
+      id: '',
+      cart: [],
     ),
     Product(
       name: 'Nike Shoes 10',
@@ -184,6 +242,9 @@ class Product extends Equatable {
       reviewTotal: 0,
       seller: "Market",
       isRecommended: false,
+      favorite: [],
+      id: '',
+      cart: [],
     ),
   ];
 }
