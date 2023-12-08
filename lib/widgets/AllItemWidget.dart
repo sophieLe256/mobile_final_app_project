@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../product/DUMMY_PRODUCTS.dart';
 import 'package:mobile_app_project/product/bloc/product_bloc.dart';
 import 'package:mobile_app_project/product/product_repo.dart';
+import 'package:mobile_app_project/pages/itemPage.dart';
 
 // 4 Item image below the scrolling row image
 class AllItemsWidget extends StatelessWidget {
@@ -37,7 +38,7 @@ class ProductCard extends StatelessWidget {
   }) : super(key: key);
 
   final Product product;
-  @override
+   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(left: 15, right: 15),
@@ -57,7 +58,10 @@ class ProductCard extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              Navigator.pushNamed(context, "itemPage");
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ItemPage(product: product)));
             },
             child: Padding(
               padding: const EdgeInsets.all(10),

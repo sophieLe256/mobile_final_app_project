@@ -77,6 +77,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             ExpansionTile(
+              
               title: Text('Men'),
               children: [
                 ListTile(
@@ -284,6 +285,7 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 30),
               const RowItemsWidget(),
               const SizedBox(height: 20),
+              
               //Loads and gets products from the firebase firestore.
               BlocBuilder<ProductBloc, ProductState>(
                 builder: (context, state) {

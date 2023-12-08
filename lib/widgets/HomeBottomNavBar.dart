@@ -37,7 +37,7 @@ class HomeBottomnavBar extends StatelessWidget {
                       elevation: 8,
                       cornerRadius: 16,
                       builder: (context, state) {
-                        return const BottomCartSheet();
+                        return BottomCartSheet();
                       });
                 },
               );
@@ -63,7 +63,7 @@ class HomeBottomnavBar extends StatelessWidget {
                     elevation: 8,
                     cornerRadius: 16,
                     builder: (context, state) {
-                      return const BottomFavoriteSheet();
+                      return BottomFavoriteSheet();
                     },
                   );
                 },

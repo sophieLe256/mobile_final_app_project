@@ -70,6 +70,7 @@ class AuthService extends ChangeNotifier {
       _firestore.collection('users').doc(userCredential.user!.uid).set({
         'uid': userCredential.user!.uid,
         'email': email,
+        'userFavorite': [],
       });
 
       return userCredential;
@@ -85,6 +86,7 @@ class AuthService extends ChangeNotifier {
       }
     }
   }
+
   Future<void> signOut() async {
     return await FirebaseAuth.instance.signOut();
   }
