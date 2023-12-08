@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 
+import '../pages/settings/profile_page.dart';
 import 'BottomCartSheet.dart';
 import 'BottomFavoriteSheet.dart';
 
@@ -75,10 +76,19 @@ class HomeBottomnavBar extends StatelessWidget {
               size: 32,
             ),
           ),
-          const Icon(
-            Icons.person,
-            color: Colors.white,
-            size: 32,
+            InkWell(
+            onTap: () {
+            // Navigate to the SettingsPage when the icon is tapped
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ProfilePage()),
+              );
+            },
+           child: const Icon(
+              Icons.person,
+              color: Colors.white,
+              size: 32,
+            ),
           )
         ],
       ),

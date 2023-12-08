@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(width: 20),
                   Text(
                     'Shop',
-                    style: TextStyle(fontSize: 20, color: Colors.black),
+                    style: TextStyle(fontSize: 20, color: Colors.black,),
                   ),
                 ],
               ),

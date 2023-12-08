@@ -81,7 +81,7 @@ class ItemPage extends StatelessWidget {
                         ],
                       ),
                       child: IconButton(
-                        icon: Icon(Icons.favorite),
+                        icon: Icon(Icons.favorite_border_outlined),
                         iconSize: 30,
                         color: Colors.redAccent,
                         onPressed: () {

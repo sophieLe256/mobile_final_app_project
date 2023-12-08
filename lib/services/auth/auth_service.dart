@@ -87,9 +87,33 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  Future<void> signOut() async {
+   Future<void> signOut() async {
     return await FirebaseAuth.instance.signOut();
   }
 
   resetPassword(String text) {}
+
+  Future<void> changePassword(String currentPassword, String newPassword) async {
+    try {
+      // Get the current user
+      User? user = _firebaseAuth.currentUser;
+
+      // Re-authenticate the user with the current password
+      AuthCredential credential = EmailAuthProvider.credential(
+        email: user!.email!,
+        password: currentPassword,
+      );
+
+      await user.reauthenticateWithCredential(credential);
+
+      // Update the password to the new one
+      await user.updatePassword(newPassword);
+      notifyListeners(); // Notify listeners if needed, to update the UI or user state
+    } on FirebaseAuthException catch (e) {
+      // Handle FirebaseAuthException errors such as:
+      // - "weak-password"
+      // - "requires-recent-login"
+      throw Exception(e.code);
+    }
+  }
 }
