@@ -290,7 +290,7 @@ class _BottomCartSheetState extends State<BottomCartSheet> {
                                       ),
                                     ),
                                     Text(
-                                      "\$${roundNum(getSum(cartList) * 0.1, 2)}",
+                                      "\$${cartList.isEmpty ? '0.00' : roundNum(getSum(cartList) * 0.1, 2)}",
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
@@ -317,7 +317,7 @@ class _BottomCartSheetState extends State<BottomCartSheet> {
                                       ),
                                     ),
                                     Text(
-                                      "\$${roundNum(getSum(cartList), 2)}",
+                                      "\$${cartList.isEmpty ? '0.00' : roundNum(getSum(cartList), 2)}",
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
@@ -344,7 +344,7 @@ class _BottomCartSheetState extends State<BottomCartSheet> {
                                       ),
                                     ),
                                     Text(
-                                      "-\$${roundNum(getSum(cartList) * 0.1, 2)}",
+                                      "-\$${cartList.isEmpty ? '0.00' : roundNum(getSum(cartList) * 0.1, 2)}",
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
