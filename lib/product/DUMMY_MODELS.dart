@@ -15,6 +15,7 @@ class Product extends Equatable {
   final List<String> favorite;
   final List<String> cart;
   final String id;
+  final String type;
 
   const Product({
     required this.isRecommended,
@@ -30,6 +31,7 @@ class Product extends Equatable {
     required this.favorite,
     required this.id,
     required this.cart,
+    required this.type,
   });
 
   Map<String, dynamic> toMap() {
@@ -58,6 +60,7 @@ class Product extends Equatable {
       reviewCount: data['reviewCount'] ?? 0,
       name: data['name'] ?? '',
       category: data['category'] ?? '',
+      type: data['type'] ?? '',
       img: data['img'] ?? '',
       price: (data['price'] ?? 0.0).toDouble(),
       description: data['description'] ?? '',
@@ -87,6 +90,7 @@ class Product extends Equatable {
         seller,
         favorite,
         cart,
+        type,
       ];
 
   static List<Product> products = [
@@ -105,6 +109,7 @@ class Product extends Equatable {
       favorite: [],
       id: '',
       cart: [],
+      type: 'Jordan',
     ),
     Product(
       name: 'Air Jordan 1',
@@ -121,6 +126,7 @@ class Product extends Equatable {
       favorite: [],
       id: '',
       cart: [],
+      type: 'Jordan',
     ),
     Product(
       name: 'Nike Shoes 3',
@@ -137,6 +143,7 @@ class Product extends Equatable {
       favorite: [],
       id: '',
       cart: [],
+      type: 'Jordan',
     ),
     Product(
       name: 'Nike Shoes 4',
@@ -153,6 +160,7 @@ class Product extends Equatable {
       favorite: [],
       id: '',
       cart: [],
+      type: 'Jordan',
     ),
     Product(
       name: 'Nike Shoes 5',
@@ -169,6 +177,7 @@ class Product extends Equatable {
       favorite: [],
       id: '',
       cart: [],
+      type: 'Jordan',
     ),
     Product(
       name: 'Nike Court Low',
@@ -185,6 +194,7 @@ class Product extends Equatable {
       favorite: [],
       id: '',
       cart: [],
+      type: 'Jordan',
     ),
     Product(
       name: 'Nike Shoes 7',
@@ -201,6 +211,7 @@ class Product extends Equatable {
       favorite: [],
       id: '',
       cart: [],
+      type: 'Jordan',
     ),
     Product(
       name: 'Nike Shoes 8',
@@ -217,6 +228,7 @@ class Product extends Equatable {
       favorite: [],
       id: '',
       cart: [],
+      type: 'Jordan',
     ),
     Product(
       name: 'Nike Shoes 9',
@@ -233,6 +245,7 @@ class Product extends Equatable {
       favorite: [],
       id: '',
       cart: [],
+      type: 'Jordan',
     ),
     Product(
       name: 'Nike Shoes 10',
@@ -249,6 +262,7 @@ class Product extends Equatable {
       favorite: [],
       id: '',
       cart: [],
+      type: 'Jordan',
     ),
   ];
 }
