@@ -70,7 +70,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-          //Shipping Address
+            //Shipping Address
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -234,17 +234,24 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
       if (state is ProductLoaded) {
         // Get the cartList from the state or wherever it's stored
+        // List<Product> cartList = state.products
+        //     .where((product) =>
+        //         product.cart.contains(FirebaseAuth.instance.currentUser!.uid))
+        //     .toList();
+        final DateTime now = DateTime.now();
+        final Timestamp timestamp = Timestamp.fromDate(now);
+
         List<Product> cartList = state.products
             .where((product) =>
                 product.cart.contains(FirebaseAuth.instance.currentUser!.uid))
             .toList();
-        var productL = "";
-        cartList.map((e) => productL= '$productL:${e.id}');
+        var productL = cartList.map((e) => e.id).toList();
+
         // Save order details to Firestore
         await _firestore.collection('users').doc(user!.uid).update({
           'userOrder': FieldValue.arrayUnion([
             {
-              'products': productL ,
+              'products': productL,
               'total': calculateTotal(cartList),
               'address': {
                 'fullName': fullNameController.text,
@@ -253,9 +260,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 'city': cityController.text,
                 'state': stateController.text,
                 'zipCode': zipCodeController.text,
-                
+                'status': 'Processing',
+                'date': timestamp,
               },
-              'status': 'Processing'
             }
           ]),
         });
@@ -283,8 +290,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         "cart": FieldValue.arrayRemove([user?.uid])
       });
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          duration: Duration(seconds: 1),
-          content: Text("Product removed from cart")));
+          duration: Duration(seconds: 2),
+          content: Text("Checkout Completed, Thanks for your order!")));
     } else {}
   }
 

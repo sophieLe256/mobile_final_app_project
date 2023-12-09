@@ -489,7 +489,7 @@ class _BottomCartSheetState extends State<BottomCartSheet> {
     ///get data
   Future<void> checkoutFunction() async {
     // Ensure that the cartList contains the correct data
-    print("CartList before navigating to CheckoutScreen: $cartList");
+    //print("CartList before navigating to CheckoutScreen: $cartList");
 
     // Navigate to the checkout screen and pass the cartList and total as parameters
     Navigator.push(

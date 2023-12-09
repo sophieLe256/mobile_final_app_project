@@ -277,12 +277,14 @@ class MyUser {
   String? name;
   String? phone;
   String? address;
+  List<Map<String, dynamic>>? userOrder;
   MyUser(
       {this.userID,
         this.email,
         this.name,
         this.phone,
-        this.address});
+        this.address,
+        this.userOrder,});
 
   //Firebase Cloud Data Decode
   factory MyUser.fromFirestore(
@@ -294,7 +296,7 @@ class MyUser {
       name: data?['name'],
       phone: data?['phone'],
       address: data?['address'],
-     
+      userOrder: List<Map<String, dynamic>>.from(data?['userOrder'] ?? []),
     );
   }
 
@@ -306,6 +308,7 @@ class MyUser {
       if (name != null) "name": name,
       if (phone != null) "phone": phone,
       if (address != null) "address": address,
+      if (userOrder != null) "userOrder": userOrder,
     };
   }
 }
