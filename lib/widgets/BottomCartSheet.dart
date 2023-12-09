@@ -78,7 +78,7 @@ class _BottomCartSheetState extends State<BottomCartSheet> {
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          for (int i = 1; i < cartList.length; i++)
+                          for (int i = 0; i < cartList.length; i++)
                             Container(
                               margin: const EdgeInsets.symmetric(
                                   vertical: 10, horizontal: 15),
@@ -284,7 +284,7 @@ class _BottomCartSheetState extends State<BottomCartSheet> {
                                       ),
                                     ),
                                     Text(
-                                      "\$${roundNum(getSum(cartList) * 0.1, 2)}",
+                                      "\$${cartList.isEmpty ? '0.00' : roundNum(getSum(cartList) * 0.1, 2)}",
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
@@ -311,7 +311,7 @@ class _BottomCartSheetState extends State<BottomCartSheet> {
                                       ),
                                     ),
                                     Text(
-                                      "\$${roundNum(getSum(cartList), 2)}",
+                                      "\$${cartList.isEmpty ? '0.00' : roundNum(getSum(cartList), 2)}",
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
@@ -338,7 +338,7 @@ class _BottomCartSheetState extends State<BottomCartSheet> {
                                       ),
                                     ),
                                     Text(
-                                      "-\$${roundNum(getSum(cartList) * 0.1, 2)}",
+                                      "-\$${cartList.isEmpty ? '0.00' : roundNum(getSum(cartList) * 0.1, 2)}",
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
