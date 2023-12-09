@@ -8,6 +8,8 @@ import 'package:mobile_app_project/pages/itemPage.dart';
 import 'package:mobile_app_project/product/DUMMY_PRODUCTS.dart';
 import 'package:mobile_app_project/product/bloc/product_bloc.dart';
 
+import '../pages/checkout_page.dart';
+
 // Bottom Cart Sheet
 
 class BottomCartSheet extends StatefulWidget {
@@ -19,9 +21,13 @@ class _BottomCartSheetState extends State<BottomCartSheet> {
   @override
   Widget build(BuildContext context) {
     ///get data
-    void checkoutFunction() {
-      print("checkout function");
-    }
+  void checkoutFunction() {
+  // Navigate to the checkout screenq
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => CheckoutScreen()),
+  );
+}
 
     List<Product> cartList = [];
 
@@ -78,7 +84,7 @@ class _BottomCartSheetState extends State<BottomCartSheet> {
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          for (int i = 1; i < cartList.length; i++)
+                          for (int i = 0; i < cartList.length; i++)
                             Container(
                               margin: const EdgeInsets.symmetric(
                                   vertical: 10, horizontal: 15),

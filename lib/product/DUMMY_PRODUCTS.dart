@@ -86,7 +86,7 @@ class Product extends Equatable {
 
   static List<Product> products = [
     Product(
-      name: 'Air Jordan 1 Navy',
+      name: 'Air Jordan 1',
       category: "Men",
       img: "assets/1.png",
       price: 90,
@@ -102,7 +102,7 @@ class Product extends Equatable {
       cart: [],
     ),
     Product(
-      name: 'Air Jordan 1 Mid SE',
+      name: 'Air Jordan 1',
       category: "Men",
       img: "assets/2.png",
       price: 135,
@@ -166,7 +166,7 @@ class Product extends Equatable {
       cart: [],
     ),
     Product(
-      name: 'Nike Court Borough Low',
+      name: 'Nike Court Low',
       category: "Men",
       img: "assets/6.png",
       price: 80,
