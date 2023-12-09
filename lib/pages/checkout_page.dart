@@ -238,12 +238,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             .where((product) =>
                 product.cart.contains(FirebaseAuth.instance.currentUser!.uid))
             .toList();
-
+        var productL = "";
+        cartList.map((e) => productL= '$productL:${e.id}');
         // Save order details to Firestore
         await _firestore.collection('users').doc(user!.uid).update({
           'userOrder': FieldValue.arrayUnion([
             {
-              'products': cartList.map((product) => product.toMap()).toList(),
+              'products': productL ,
               'total': calculateTotal(cartList),
               'address': {
                 'fullName': fullNameController.text,
@@ -252,7 +253,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 'city': cityController.text,
                 'state': stateController.text,
                 'zipCode': zipCodeController.text,
+                
               },
+              'status': 'Processing'
             }
           ]),
         });
