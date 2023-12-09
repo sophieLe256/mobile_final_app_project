@@ -81,11 +81,12 @@ class _HomePageState extends State<HomePage> {
 
     final productCollection = db.collection("products");
     await productCollection.get().then((querySnapshot) {
-      querySnapshot.docs.forEach((doc){
+      querySnapshot.docs.forEach((doc) {
         listProduct.add(Product.fromSnapshot(doc));
       });
     });
   }
+
   @override
   void dispose() {
     _listener?.cancel();
@@ -176,17 +177,18 @@ class _HomePageState extends State<HomePage> {
               ListTile(
                 title: Text('Jordan'),
                 onTap: () {
-                 Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => MenJordanShoesPage()),
-                    );
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => MenJordanShoesPage()),
+                  );
                 },
               ),
               ListTile(
                 title: Text('Shoes'),
                 onTap: () {
-                 Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => MenShoesPage()),
-                    );
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => MenShoesPage()),
+                  );
                 },
               ),
               ListTile(
@@ -196,8 +198,7 @@ class _HomePageState extends State<HomePage> {
                   // Replace with your navigation logic
                   Navigator.pop(context); // Close the drawer
                   // Navigate to Women's Formal Shoes screen
-                Navigator.pushNamed(context, '/men_clothing');
-               
+                  Navigator.pushNamed(context, '/men_clothing');
                 },
               ),
               // Add more subcategories for Women as needed
@@ -210,16 +211,18 @@ class _HomePageState extends State<HomePage> {
                 title: Text('Jordan'),
                 onTap: () {
                   Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => WomenJordanShoesPage()),
-                    );
+                    MaterialPageRoute(
+                        builder: (context) => WomenJordanShoesPage()),
+                  );
                 },
               ),
               ListTile(
                 title: Text('Shoes'),
                 onTap: () {
-                 Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => WomenJordanShoesPage()),
-                    );
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => WomenJordanShoesPage()),
+                  );
                 },
                 // Add more subcategories for Men as needed
               ),
@@ -289,42 +292,54 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget widgetProfileList() {
+    bool showNotificationAlert =
+        false; // Use this to control the visibility of the alert
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              //Custom App Bar
+              // Custom App Bar
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: const Color(0xFF475269).withOpacity(0.3),
-                            blurRadius: 5,
-                            spreadRadius: 1,
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          showNotificationAlert = true;
+                        });
+                        // Show the alert dialog here directly instead of in the widget tree
+                        _showNotificationAlertDialog(context);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color(0xFF475269).withOpacity(0.3),
+                              blurRadius: 5,
+                              spreadRadius: 1,
+                            ),
+                          ],
+                        ),
+                        child: badges.Badge(
+                          badgeStyle: badges.BadgeStyle(
+                            badgeColor: Colors.redAccent,
                           ),
-                        ],
-                      ),
-                      child: const badges.Badge(
-                        badgeStyle: badges.BadgeStyle(
-                          badgeColor: Colors.redAccent,
-                        ),
-                        badgeContent: Text(
-                          '3',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        child: Icon(
-                          Icons.notifications,
-                          size: 30,
-                          color: Color(0xFF475269),
+                          badgeContent: Text(
+                            '1',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          child: Icon(
+                            Icons.notifications,
+                            size: 30,
+                            color: Color(0xFF475269),
+                          ),
                         ),
                       ),
                     ),
@@ -382,6 +397,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
+
               const SizedBox(height: 30),
               const RowItemsWidget(),
               const SizedBox(height: 20),
@@ -408,6 +424,26 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       bottomNavigationBar: const HomeBottomnavBar(),
+    );
+  }
+
+  void _showNotificationAlertDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Notification', style: TextStyle(color: Color(0xFF475269))),
+          content: Text('This is a notification alert!', style: TextStyle(color: Color(0xFF475269))),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
     );
   }
 
