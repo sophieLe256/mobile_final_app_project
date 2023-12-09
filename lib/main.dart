@@ -41,7 +41,6 @@ class MyApp extends StatelessWidget {
         )
       ],
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           scaffoldBackgroundColor: Colors.blue[100],
         ),
@@ -51,6 +50,7 @@ class MyApp extends StatelessWidget {
           "homePage": (context) => const HomePage(),
           // "itemPage": (context) => ItemPage(),
         },
+        initialRoute: "homePage",
       ),
     );
   }

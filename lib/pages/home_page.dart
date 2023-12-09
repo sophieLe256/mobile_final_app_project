@@ -1,7 +1,13 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mobile_app_project/product/DUMMY_MODELS.dart';
 import 'package:mobile_app_project/product/bloc/product_bloc.dart';
 import 'package:mobile_app_project/services/auth/auth_service.dart';
 import 'package:mobile_app_project/widgets/AllItemWidget.dart';
@@ -30,168 +36,264 @@ class _HomePageState extends State<HomePage> {
     Navigator.popAndPushNamed(context, "logIn");
   }
 
+  // get use information
+  var db = FirebaseFirestore.instance;
+  var firebaseAuth = FirebaseAuth.instance;
+  MyUser currentUser = MyUser();
+  List<Product> listProduct = List<Product>.empty(growable: true);
+
+  // create listener
+  // Firbase listen
+  StreamSubscription<DocumentSnapshot>? _listener;
+  bool listenerCreated = false;
+  bool isLoading = true;
+  setUpListener() {
+    final userCollection = db.collection("users");
+    userCollection
+        .doc(firebaseAuth.currentUser!.uid)
+        .snapshots()
+        .listen((event) async {
+      messengeBoxShow("loading");
+      try {
+        setState(() {
+          isLoading = true;
+        });
+        await updateCurrentDatabase();
+        setState(() {
+          isLoading = false;
+        });
+      } catch (e) {
+        messengeBoxShow("Error $e");
+      }
+    });
+  }
+
+  updateCurrentDatabase() async {
+    final userCollection = db.collection("users");
+    await userCollection.doc(firebaseAuth.currentUser!.uid).get().then(
+      (value) {
+        currentUser = MyUser.fromFirestore(value);
+      },
+    );
+
+    final productCollection = db.collection("products");
+    await productCollection.get().then((querySnapshot) {
+      querySnapshot.docs.forEach((doc){
+        listProduct.add(Product.fromSnapshot(doc));
+      });
+    });
+  }
+  @override
+  void dispose() {
+    _listener?.cancel();
+    super.dispose();
+  }
+
+  @override
+  initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
+      if (firebaseAuth.currentUser == null) {
+        // User not login
+        Navigator.pushReplacementNamed(context, "logIn");
+      } else {
+        if (!listenerCreated) {
+          _listener = setUpListener();
+          listenerCreated = true;
+        }
+      }
+    });
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('SoleFusion Hub'),
-        backgroundColor: Colors.blue[100],
-        actions: [
-          IconButton(
-            onPressed: signOut,
-            icon: const Icon(
-              Icons.logout,
-              size: 30,
-              color: Color(0xFF475269),
+    if (isLoading) {
+      return Scaffold(body: widgetLoading());
+    } else {
+      return Scaffold(
+          appBar: myAppBar(), drawer: myDrawer(), body: widgetProfileList());
+    }
+  }
+
+  myAppBar() {
+    return AppBar(
+      title: const Text('SoleFusion Hub'),
+      backgroundColor: Colors.blue[100],
+      actions: [
+        IconButton(
+          onPressed: signOut,
+          icon: const Icon(
+            Icons.logout,
+            size: 30,
+            color: Color(0xFF475269),
+          ),
+        ),
+      ],
+    );
+  }
+
+  myDrawer() {
+    return Drawer(
+      child: ListView(
+        children: [
+          DrawerHeader(
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 30,
+                  // You can replace the AssetImage with your user's profile picture
+                  backgroundImage: AssetImage('assets/app_img.jpg'),
+                ),
+                SizedBox(width: 20),
+                Text(
+                  currentUser.name ?? "No Name",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
             ),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF475269).withOpacity(0.3),
+                  blurRadius: 5,
+                  spreadRadius: 1,
+                ),
+              ],
+            ),
+          ),
+          ExpansionTile(
+            title: Text('Men'),
+            children: [
+              ListTile(
+                title: Text('Jordan'),
+                onTap: () {
+                  // Navigate to Women's Casual Shoes
+                  // Replace with your navigation logic
+                  Navigator.pop(context); // Close the drawer
+                  // Navigate to Women's Casual Shoes screen
+                  Navigator.pushNamed(context, '/women_jordan_shoes');
+                },
+              ),
+              ListTile(
+                title: Text('Shoes'),
+                onTap: () {
+                  // Navigate to Women's Formal Shoes
+                  // Replace with your navigation logic
+                  Navigator.pop(context); // Close the drawer
+                  // Navigate to Women's Formal Shoes screen
+                  Navigator.pushNamed(context, '/women_shoes');
+                },
+              ),
+              ListTile(
+                title: Text('Clothing & Accessories'),
+                onTap: () {
+                  // Navigate to Women's Formal Shoes
+                  // Replace with your navigation logic
+                  Navigator.pop(context); // Close the drawer
+                  // Navigate to Women's Formal Shoes screen
+                  Navigator.pushNamed(context, '/women_clothing');
+                },
+              ),
+              // Add more subcategories for Women as needed
+            ],
+          ),
+          ExpansionTile(
+            title: Text('Women'),
+            children: [
+              ListTile(
+                title: Text('Jordan'),
+                onTap: () {
+                  // Navigate to Men's Casual Shoes
+                  // Replace with your navigation logic
+                  Navigator.pop(context); // Close the drawer
+                  // Navigate to Men's Casual Shoes screen
+                  Navigator.pushNamed(context, '/men_jordan_shoes');
+                },
+              ),
+              ListTile(
+                title: Text('Shoes'),
+                onTap: () {
+                  // Navigate to Men's Formal Shoes
+                  // Replace with your navigation logic
+                  Navigator.pop(context); // Close the drawer
+                  // Navigate to Men's Formal Shoes screen
+                  Navigator.pushNamed(context, '/men_shoes');
+                },
+                // Add more subcategories for Men as needed
+              ),
+              ListTile(
+                title: Text('Clothing & Accessories'),
+                onTap: () {
+                  // Navigate to Men's Formal Shoes
+                  // Replace with your navigation logic
+                  Navigator.pop(context); // Close the drawer
+                  // Navigate to Men's Formal Shoes screen
+                  Navigator.pushNamed(context, '/men_clothing');
+                },
+                // Add more subcategories for Men as needed
+              ),
+            ],
+          ),
+          ExpansionTile(
+            title: Text('Kids'),
+            children: [
+              ListTile(
+                title: Text('Jordan'),
+                onTap: () {
+                  // Navigate to Kids' Boys Shoes
+                  // Replace with your navigation logic
+                  Navigator.pop(context); // Close the drawer
+                  // Navigate to Kids' Boys Shoes screen
+                  Navigator.pushNamed(context, '/kids_jordan_shoes');
+                },
+              ),
+              ListTile(
+                title: Text('Shoes'),
+                onTap: () {
+                  // Navigate to Kids' Girls Shoes
+                  // Replace with your navigation logic
+                  Navigator.pop(context); // Close the drawer
+                  // Navigate to Kids' Girls Shoes screen
+                  Navigator.pushNamed(context, '/kids_shoes');
+                },
+                // Add more subcategories for Kids as needed
+              ),
+              ListTile(
+                title: Text('Clothing & Accessories'),
+                onTap: () {
+                  // Navigate to Kids' Girls Shoes
+                  // Replace with your navigation logic
+                  Navigator.pop(context); // Close the drawer
+                  // Navigate to Kids' Girls Shoes screen
+                  Navigator.pushNamed(context, '/kids_clothing');
+                },
+                // Add more subcategories for Kids as needed
+              ),
+            ],
           ),
         ],
       ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    radius: 30,
-                    // You can replace the AssetImage with your user's profile picture
-                    backgroundImage: AssetImage('assets/app_img.jpg'),
-                  ),
-                  SizedBox(width: 20),
-                  Text(
-                    'Shop',
-                    style: TextStyle(fontSize: 20, color: Colors.black,),
-                  ),
-                ],
-              ),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xFF475269).withOpacity(0.3),
-                    blurRadius: 5,
-                    spreadRadius: 1,
-                  ),
-                ],
-              ),
-            ),
-            ExpansionTile(
-              
-              title: Text('Men'),
-              children: [
-                ListTile(
-                  title: Text('Jordan'),
-                  onTap: () {
-                    // Navigate to Women's Casual Shoes
-                    // Replace with your navigation logic
-                    Navigator.pop(context); // Close the drawer
-                    // Navigate to Women's Casual Shoes screen
-                    Navigator.pushNamed(context, '/women_jordan_shoes');
-                  },
-                ),
-                ListTile(
-                  title: Text('Shoes'),
-                  onTap: () {
-                    // Navigate to Women's Formal Shoes
-                    // Replace with your navigation logic
-                    Navigator.pop(context); // Close the drawer
-                    // Navigate to Women's Formal Shoes screen
-                    Navigator.pushNamed(context, '/women_shoes');
-                  },
-                ),
-                ListTile(
-                  title: Text('Clothing & Accessories'),
-                  onTap: () {
-                    // Navigate to Women's Formal Shoes
-                    // Replace with your navigation logic
-                    Navigator.pop(context); // Close the drawer
-                    // Navigate to Women's Formal Shoes screen
-                    Navigator.pushNamed(context, '/women_clothing');
-                  },
-                ),
-                // Add more subcategories for Women as needed
-              ],
-            ),
-            ExpansionTile(
-              title: Text('Women'),
-              children: [
-                ListTile(
-                  title: Text('Jordan'),
-                  onTap: () {
-                    // Navigate to Men's Casual Shoes
-                    // Replace with your navigation logic
-                    Navigator.pop(context); // Close the drawer
-                    // Navigate to Men's Casual Shoes screen
-                    Navigator.pushNamed(context, '/men_jordan_shoes');
-                  },
-                ),
-                ListTile(
-                  title: Text('Shoes'),
-                  onTap: () {
-                    // Navigate to Men's Formal Shoes
-                    // Replace with your navigation logic
-                    Navigator.pop(context); // Close the drawer
-                    // Navigate to Men's Formal Shoes screen
-                    Navigator.pushNamed(context, '/men_shoes');
-                  },
-                  // Add more subcategories for Men as needed
-                ),
-                ListTile(
-                  title: Text('Clothing & Accessories'),
-                  onTap: () {
-                    // Navigate to Men's Formal Shoes
-                    // Replace with your navigation logic
-                    Navigator.pop(context); // Close the drawer
-                    // Navigate to Men's Formal Shoes screen
-                    Navigator.pushNamed(context, '/men_clothing');
-                  },
-                  // Add more subcategories for Men as needed
-                ),
-              ],
-            ),
-            ExpansionTile(
-              title: Text('Kids'),
-              children: [
-                ListTile(
-                  title: Text('Jordan'),
-                  onTap: () {
-                    // Navigate to Kids' Boys Shoes
-                    // Replace with your navigation logic
-                    Navigator.pop(context); // Close the drawer
-                    // Navigate to Kids' Boys Shoes screen
-                    Navigator.pushNamed(context, '/kids_jordan_shoes');
-                  },
-                ),
-                ListTile(
-                  title: Text('Shoes'),
-                  onTap: () {
-                    // Navigate to Kids' Girls Shoes
-                    // Replace with your navigation logic
-                    Navigator.pop(context); // Close the drawer
-                    // Navigate to Kids' Girls Shoes screen
-                    Navigator.pushNamed(context, '/kids_shoes');
-                  },
-                  // Add more subcategories for Kids as needed
-                ),
-                ListTile(
-                  title: Text('Clothing & Accessories'),
-                  onTap: () {
-                    // Navigate to Kids' Girls Shoes
-                    // Replace with your navigation logic
-                    Navigator.pop(context); // Close the drawer
-                    // Navigate to Kids' Girls Shoes screen
-                    Navigator.pushNamed(context, '/kids_clothing');
-                  },
-                  // Add more subcategories for Kids as needed
-                ),
-              ],
-            ),
-          ],
-        ),
+    );
+  }
+
+  // Widget Section
+  Widget widgetLoading() {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height / 1.3,
+      child: const Center(
+        child: CircularProgressIndicator(),
       ),
+    );
+  }
+
+  Widget widgetProfileList() {
+    return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -287,27 +389,41 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 30),
               const RowItemsWidget(),
               const SizedBox(height: 20),
-              
-              //Loads and gets products from the firebase firestore.
-              BlocBuilder<ProductBloc, ProductState>(
-                builder: (context, state) {
-                  if (state is ProductLoading) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  if (state is ProductLoaded) {
-                    return AllItemsWidget(products: state.products);
-                  } else {
-                    return Text('Something went wrong.');
-                  }
-                },
-              ),
+
+              // Loads and gets products from the firebase firestore.
+              AllItemsWidget(products: listProduct),
+
+              // BlocBuilder<ProductBloc, ProductState>(
+              //   builder: (context, state) {
+              //     if (state is ProductLoading) {
+              //       return Center(
+              //         child: CircularProgressIndicator(),
+              //       );
+              //     }
+              //     if (state is ProductLoaded) {
+              //       return
+              //     } else {
+              //       return Text('Something went wrong.');
+              //     }
+              //   },
+              // ),
             ],
           ),
         ),
       ),
       bottomNavigationBar: const HomeBottomnavBar(),
     );
+  }
+
+  void messengeBoxShow(String text) {
+    Fluttertoast.showToast(
+        msg: text,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.white,
+        textColor: Colors.red, //text Color
+        fontSize: 16.0 //font size
+        );
   }
 }

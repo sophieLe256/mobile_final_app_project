@@ -32,6 +32,24 @@ class Product extends Equatable {
     required this.cart,
   });
 
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'category': category,
+      'img': img,
+      'price': price,
+      'description': description,
+      'quantity': quantity,
+      'reviewTotal': reviewTotal,
+      'reviewCount': reviewCount,
+      'seller': seller,
+      'isRecommended': isRecommended,
+      'favorite': favorite,
+      'id': id,
+      'cart': cart,
+    };
+  }
+
   static Product fromSnapshot(DocumentSnapshot<Map<String, dynamic>> doc) {
     Map<String, dynamic> data = doc.data() ?? {};
     return Product(
@@ -243,44 +261,37 @@ class MyUser {
   String? userID;
   String? email;
   String? name;
-  String? pictureCode;
-  String? chats;
-  String? contacts;
-  String? tasks;
+  String? phone;
+  String? address;
   MyUser(
       {this.userID,
         this.email,
         this.name,
-        this.pictureCode,
-        this.chats,
-        this.contacts,
-        this.tasks});
+        this.phone,
+        this.address});
 
   //Firebase Cloud Data Decode
   factory MyUser.fromFirestore(
       DocumentSnapshot<Map<String, dynamic>> snapshot) {
     final data = snapshot.data();
     return MyUser(
-      userID: data?['userID'],
+      userID: data?['uid'],
       email: data?['email'],
       name: data?['name'],
-      pictureCode: data?['pictureCode'],
-      chats: data?['chats'],
-      contacts: data?['contacts'],
-      tasks: data?['tasks'],
+      phone: data?['phone'],
+      address: data?['address'],
+     
     );
   }
 
   //Firebase Cloud Data Encode
   Map<String, dynamic> toFirestore() {
     return {
-      if (userID != null) "userID": userID,
+      if (userID != null) "uid": userID,
       if (email != null) "email": email,
       if (name != null) "name": name,
-      if (pictureCode != null) "pictureCode": pictureCode,
-      if (chats != null) "chats": chats,
-      if (contacts != null) "contacts": contacts,
-      if (tasks != null) "tasks": tasks,
+      if (phone != null) "phone": phone,
+      if (address != null) "address": address,
     };
   }
 }

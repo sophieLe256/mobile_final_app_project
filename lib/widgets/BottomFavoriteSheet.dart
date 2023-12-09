@@ -142,47 +142,49 @@ class FavoriteCard extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Container(
-                            padding: const EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  color:
-                                      const Color(0xFF475269).withOpacity(0.3),
-                                  blurRadius: 5,
-                                  spreadRadius: 1,
-                                ),
-                              ],
-                            ),
-                            child: const Icon(CupertinoIcons.minus, size: 18),
-                          ),
+                          // Container(
+                          //   padding: const EdgeInsets.all(5),
+                          //   decoration: BoxDecoration(
+                          //     color: Colors.white,
+                          //     borderRadius: BorderRadius.circular(10),
+                          //     boxShadow: [
+                          //       BoxShadow(
+                          //         color:
+                          //             const Color(0xFF475269).withOpacity(0.3),
+                          //         blurRadius: 5,
+                          //         spreadRadius: 1,
+                          //       ),
+                          //     ],
+                          //   ),
+                          //   child: const Icon(CupertinoIcons.minus, size: 18),
+                          // ),
                           Container(
                             margin: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Text("\$${product.quantity}",
-                                style: TextStyle(
-                                  color: Color(0xFF475269),
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                )),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  color:
-                                      const Color(0xFF475269).withOpacity(0.3),
-                                  blurRadius: 5,
-                                  spreadRadius: 1,
-                                ),
-                              ],
+                            child: Text(
+                              "\$${product.price}",
+                              style: TextStyle(
+                                color: Color(0xFF475269),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 20,
+                              ),
                             ),
-                            child: const Icon(CupertinoIcons.plus, size: 18),
                           ),
+                          // Container(
+                          //   padding: const EdgeInsets.all(5),
+                          //   decoration: BoxDecoration(
+                          //     color: Colors.white,
+                          //     borderRadius: BorderRadius.circular(10),
+                          //     boxShadow: [
+                          //       BoxShadow(
+                          //         color:
+                          //             const Color(0xFF475269).withOpacity(0.3),
+                          //         blurRadius: 5,
+                          //         spreadRadius: 1,
+                          //       ),
+                          //     ],
+                          //   ),
+                          //   child: const Icon(CupertinoIcons.plus, size: 18),
+                          // ),
                         ],
                       )
                     ],
@@ -190,7 +192,7 @@ class FavoriteCard extends StatelessWidget {
                 ),
                 const Spacer(),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 25),
+                  padding: const EdgeInsets.symmetric(vertical: 50),
                   child: Column(
                     children: [
                       Container(
@@ -217,15 +219,6 @@ class FavoriteCard extends StatelessWidget {
                               removeFav(product: product);
                             },
                           ),
-                        ),
-                      ),
-                      const Spacer(),
-                      Text(
-                        "\$${product.price}",
-                        style: TextStyle(
-                          color: Color(0xFF475269),
-                          fontWeight: FontWeight.w500,
-                          fontSize: 20,
                         ),
                       ),
                     ],

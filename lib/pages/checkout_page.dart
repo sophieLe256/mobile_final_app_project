@@ -1,9 +1,66 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mobile_app_project/product/DUMMY_MODELS.dart';
+import 'package:provider/provider.dart';
+import 'package:mobile_app_project/product/bloc/product_bloc.dart';
+import 'dart:math';
 
-class CheckoutScreen extends StatelessWidget {
+class CheckoutScreen extends StatefulWidget {
+  final List<Product> cartList;
+  final double total;
+
+  CheckoutScreen({required this.cartList, required this.total});
+
+  @override
+  _CheckoutScreenState createState() => _CheckoutScreenState();
+}
+
+class _CheckoutScreenState extends State<CheckoutScreen> {
+  List<Product> cartList = [];
+  double getSum(List<Product> l) {
+    double subtotal = 0;
+    for (int i = 0; i < l.length; i++) {
+      subtotal += l[i].price;
+    }
+    return subtotal;
+  }
+
+  double roundNum(double value, int places) {
+    num mod = pow(10.0, places);
+    return ((value * mod).round().toDouble() / mod);
+  }
+
+  double calculateTotal(List<Product> cartList) {
+    double subtotal = getSum(cartList);
+    double deliveryFee = roundNum(subtotal * 0.1, 2);
+    double discount = roundNum(subtotal * 0.1, 2);
+
+    return roundNum(subtotal + deliveryFee - discount, 2);
+  }
+
+  final TextEditingController fullNameController = TextEditingController();
+  final TextEditingController addressLine1Controller = TextEditingController();
+  final TextEditingController addressLine2Controller = TextEditingController();
+  final TextEditingController cityController = TextEditingController();
+  final TextEditingController stateController = TextEditingController();
+  final TextEditingController zipCodeController = TextEditingController();
+  final TextEditingController cardNameController = TextEditingController();
+  final TextEditingController cardNumberController = TextEditingController();
+  final TextEditingController expirationDateController =
+      TextEditingController();
+  final TextEditingController cvcController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    final ProductState state = context.read<ProductBloc>().state;
+    List<Product> cartList = List<Product>.empty(growable: true);
+    if (state is ProductLoaded) {
+      cartList = state.products
+          .where((product) =>
+              product.cart.contains(FirebaseAuth.instance.currentUser!.uid))
+          .toList();
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text('Checkout'),
@@ -13,41 +70,7 @@ class CheckoutScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xFF475269).withOpacity(0.3),
-                    blurRadius: 5,
-                    spreadRadius: 1,
-                  ),
-                ],
-              ),
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Review Your Products',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF475269),
-                    ),
-                  ),
-                  // Add the necessary widgets for product review here
-                  // ...
-                ],
-              ),
-            ),
-
-            // Product Review Section
-            // Add widgets to display reviewed products here
-
-            SizedBox(height: 20),
-
+          //Shipping Address
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -74,17 +97,17 @@ class CheckoutScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   // Shipping Address Input Fields
-                  buildTextField('Full Name'),
+                  buildTextField('Full Name', fullNameController),
                   SizedBox(height: 10),
-                  buildTextField('Address Line 1'),
+                  buildTextField('Address Line 1', addressLine1Controller),
                   SizedBox(height: 10),
-                  buildTextField('Address Line 2'),
+                  buildTextField('Address Line 2', addressLine2Controller),
                   SizedBox(height: 10),
-                  buildTextField('City'),
+                  buildTextField('City', cityController),
                   SizedBox(height: 10),
-                  buildTextField('State'),
+                  buildTextField('State', stateController),
                   SizedBox(height: 10),
-                  buildTextField('Zip Code'),
+                  buildTextField('Zip Code', zipCodeController),
                 ],
               ),
             ),
@@ -116,20 +139,21 @@ class CheckoutScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   // Payment Information Input Fields
-                  buildTextField('Name on Card'),
+                  buildTextField('Name on Card', cardNameController),
                   SizedBox(height: 10),
-                  buildTextField('Card Number'),
+                  buildTextField('Card Number', cardNumberController),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
                         flex: 2,
-                        child: buildTextField('Expiration Date'),
+                        child: buildTextField(
+                            'Expiration Date', expirationDateController),
                       ),
                       SizedBox(width: 20),
                       Expanded(
                         flex: 1,
-                        child: buildTextField('CVC'),
+                        child: buildTextField('CVC', cvcController),
                       ),
                     ],
                   ),
@@ -146,7 +170,7 @@ class CheckoutScreen extends StatelessWidget {
                       ),
                       // Display the total amount here
                       Text(
-                        '\$500.00', // Replace with the actual total amount
+                        '\$${calculateTotal(cartList)}',
                         style: TextStyle(
                           fontSize: 22,
                           color: Colors.redAccent,
@@ -164,8 +188,7 @@ class CheckoutScreen extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // Implement logic for checkout here
-                  // This button can trigger the payment process
+                  completePurchase(context);
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -182,15 +205,107 @@ class CheckoutScreen extends StatelessWidget {
     );
   }
 
-  Widget buildTextField(String labelText) {
+  Widget buildTextField(String labelText, TextEditingController controller) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextFormField(
+        controller: controller,
         decoration: InputDecoration(
           labelText: labelText,
           border: OutlineInputBorder(),
         ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter $labelText';
+          }
+          return null;
+        },
       ),
     );
+  }
+
+  void completePurchase(BuildContext context) async {
+    if (_validateForm()) {
+      final User? user = FirebaseAuth.instance.currentUser;
+      final _firestore = FirebaseFirestore.instance;
+
+      // Access the state using Provider
+      final ProductState state = context.read<ProductBloc>().state;
+
+      if (state is ProductLoaded) {
+        // Get the cartList from the state or wherever it's stored
+        List<Product> cartList = state.products
+            .where((product) =>
+                product.cart.contains(FirebaseAuth.instance.currentUser!.uid))
+            .toList();
+
+        // Save order details to Firestore
+        await _firestore.collection('users').doc(user!.uid).update({
+          'userOrder': FieldValue.arrayUnion([
+            {
+              'products': cartList.map((product) => product.toMap()).toList(),
+              'total': calculateTotal(cartList),
+              'address': {
+                'fullName': fullNameController.text,
+                'addressLine1': addressLine1Controller.text,
+                'addressLine2': addressLine2Controller.text,
+                'city': cityController.text,
+                'state': stateController.text,
+                'zipCode': zipCodeController.text,
+              },
+            }
+          ]),
+        });
+
+        // Remove each product from the cart
+        for (Product product in cartList) {
+          await removeCart(product: product);
+        }
+
+        // Add logic for payment process if needed
+
+        // Navigate back or to the next screen
+        Navigator.pop(context);
+      }
+    }
+  }
+
+  Future<void> removeCart({required Product product}) async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (product.cart.contains(user!.uid)) {
+      await FirebaseFirestore.instance
+          .collection('products')
+          .doc(product.id)
+          .update({
+        "cart": FieldValue.arrayRemove([user?.uid])
+      });
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          duration: Duration(seconds: 1),
+          content: Text("Product removed from cart")));
+    } else {}
+  }
+
+  bool _validateForm() {
+    // Validate the form fields
+    if (fullNameController.text.isEmpty ||
+        addressLine1Controller.text.isEmpty ||
+        cityController.text.isEmpty ||
+        stateController.text.isEmpty ||
+        zipCodeController.text.isEmpty ||
+        cardNameController.text.isEmpty ||
+        cardNumberController.text.isEmpty ||
+        expirationDateController.text.isEmpty ||
+        cvcController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please fill in all the required fields.'),
+        ),
+      );
+      return false;
+    }
+
+    // Add additional validation logic if needed
+
+    return true;
   }
 }
