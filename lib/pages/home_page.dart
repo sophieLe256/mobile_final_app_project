@@ -6,6 +6,10 @@ import 'package:badges/badges.dart' as badges;
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mobile_app_project/pages/catalog/kids_clothing_page.dart';
+import 'package:mobile_app_project/pages/catalog/kids_jordan_shoe_page.dart';
+import 'package:mobile_app_project/pages/catalog/men_clothing_page.dart';
+import 'package:mobile_app_project/pages/catalog/women_clothing_page.dart';
 import 'package:mobile_app_project/product/DUMMY_MODELS.dart';
 import 'package:mobile_app_project/product/bloc/product_bloc.dart';
 import 'package:mobile_app_project/services/auth/auth_service.dart';
@@ -194,11 +198,9 @@ class _HomePageState extends State<HomePage> {
               ListTile(
                 title: Text('Clothing & Accessories'),
                 onTap: () {
-                  // Navigate to Women's Formal Shoes
-                  // Replace with your navigation logic
-                  Navigator.pop(context); // Close the drawer
-                  // Navigate to Women's Formal Shoes screen
-                  Navigator.pushNamed(context, '/men_clothing');
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => MenClothingPage()),
+                  );
                 },
               ),
               // Add more subcategories for Women as needed
@@ -220,8 +222,7 @@ class _HomePageState extends State<HomePage> {
                 title: Text('Shoes'),
                 onTap: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) => WomenJordanShoesPage()),
+                    MaterialPageRoute(builder: (context) => WomenShoesPage()),
                   );
                 },
                 // Add more subcategories for Men as needed
@@ -229,11 +230,10 @@ class _HomePageState extends State<HomePage> {
               ListTile(
                 title: Text('Clothing & Accessories'),
                 onTap: () {
-                  // Navigate to Men's Formal Shoes
-                  // Replace with your navigation logic
-                  Navigator.pop(context); // Close the drawer
-                  // Navigate to Men's Formal Shoes screen
-                  Navigator.pushNamed(context, '/men_clothing');
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => WomenClothingPage()),
+                  );
                 },
                 // Add more subcategories for Men as needed
               ),
@@ -245,32 +245,29 @@ class _HomePageState extends State<HomePage> {
               ListTile(
                 title: Text('Jordan'),
                 onTap: () {
-                  // Navigate to Kids' Boys Shoes
-                  // Replace with your navigation logic
-                  Navigator.pop(context); // Close the drawer
-                  // Navigate to Kids' Boys Shoes screen
-                  Navigator.pushNamed(context, '/kids_jordan_shoes');
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => KidsJordanShoesPage()),
+                  );
                 },
               ),
               ListTile(
                 title: Text('Shoes'),
                 onTap: () {
-                  // Navigate to Kids' Girls Shoes
-                  // Replace with your navigation logic
-                  Navigator.pop(context); // Close the drawer
-                  // Navigate to Kids' Girls Shoes screen
-                  Navigator.pushNamed(context, '/kids_shoes');
+                 Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => KidsJordanShoesPage()),
+                  );
                 },
                 // Add more subcategories for Kids as needed
               ),
               ListTile(
                 title: Text('Clothing & Accessories'),
                 onTap: () {
-                  // Navigate to Kids' Girls Shoes
-                  // Replace with your navigation logic
-                  Navigator.pop(context); // Close the drawer
-                  // Navigate to Kids' Girls Shoes screen
-                  Navigator.pushNamed(context, '/kids_clothing');
+               Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => KidClothingPage()),
+                  );
                 },
                 // Add more subcategories for Kids as needed
               ),
@@ -432,8 +429,10 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Notification', style: TextStyle(color: Color(0xFF475269))),
-          content: Text('This is a notification alert!', style: TextStyle(color: Color(0xFF475269))),
+          title:
+              Text('Notification', style: TextStyle(color: Color(0xFF475269))),
+          content: Text('This is a notification alert!',
+              style: TextStyle(color: Color(0xFF475269))),
           actions: <Widget>[
             TextButton(
               onPressed: () {

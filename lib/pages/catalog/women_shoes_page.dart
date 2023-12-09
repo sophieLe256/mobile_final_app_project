@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:mobile_app_project/pages/itemPage.dart';
 import 'package:mobile_app_project/product/DUMMY_MODELS.dart';
 
-
 class WomenShoesPage extends StatelessWidget {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 

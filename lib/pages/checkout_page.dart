@@ -16,6 +16,40 @@ class CheckoutScreen extends StatefulWidget {
   _CheckoutScreenState createState() => _CheckoutScreenState();
 }
 
+class ConfirmationScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Order Confirmation'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.check_circle_outline,
+              size: 100,
+              color: Colors.green,
+            ),
+            SizedBox(height: 20),
+            Text(
+              'Thank you for your purchase!',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 10),
+            Text('Confirmation order details here...'),
+            // Add order details if needed
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class _CheckoutScreenState extends State<CheckoutScreen> {
   List<Product> cartList = [];
   double getSum(List<Product> l) {
@@ -275,7 +309,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         // Add logic for payment process if needed
 
         // Navigate back or to the next screen
-        Navigator.pop(context);
+        // Navigate to the confirmation screen after purchase is completed
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ConfirmationScreen()),
+        );
       }
     }
   }
@@ -291,7 +329,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       });
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           duration: Duration(seconds: 2),
-          content: Text("Checkout Completed, Thanks for your order!")));
+          content: Text("Purchase Compplete!")));
     } else {}
   }
 
