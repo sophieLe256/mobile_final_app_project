@@ -38,7 +38,8 @@ class ProductCard extends StatelessWidget {
   }) : super(key: key);
 
   final Product product;
-   @override
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(left: 15, right: 15),
@@ -54,16 +55,17 @@ class ProductCard extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
-        children: [
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ItemPage(product: product)));
-            },
-            child: Padding(
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ItemPage(product: product)),
+          );
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
               padding: const EdgeInsets.all(10),
               child: Image.asset(
                 product.img,
@@ -71,11 +73,8 @@ class ProductCard extends StatelessWidget {
                 width: 120,
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: Container(
-              alignment: Alignment.centerLeft,
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
               child: Text(
                 product.name,
                 style: const TextStyle(
@@ -83,30 +82,29 @@ class ProductCard extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF475269),
                 ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
-          ),
-          Container(
-            alignment: Alignment.centerLeft,
-            child: Text(
+            Text(
               "New ${product.category} Shoes",
               style: TextStyle(
                 fontSize: 13,
                 color: const Color(0xFF475269).withOpacity(0.7),
               ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   "\$${product.price}",
                   style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.redAccent),
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.redAccent,
+                  ),
                 ),
                 Container(
                   padding: const EdgeInsets.all(5),
@@ -122,8 +120,8 @@ class ProductCard extends StatelessWidget {
                 ),
               ],
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

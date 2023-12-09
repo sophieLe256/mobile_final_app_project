@@ -29,22 +29,21 @@ class _BottomFavoriteSheetState extends State<BottomFavoriteSheet> {
               .where((products) => products.favorite
                   .contains(FirebaseAuth.instance.currentUser!.uid))
               .toList();
-          return ListView.builder(
-            shrinkWrap: true,
-            itemCount: favList.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Container(
-                //height: 600,
-                padding: const EdgeInsets.all(20),
-                color: Colors.blue[100],
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    FavoriteCard(product: favList[index]),
-                  ],
-                ),
-              );
-            },
+          return SingleChildScrollView(
+            child: Column(
+              children: favList.map((product) {
+                return Container(
+                  padding: const EdgeInsets.all(20),
+                  color: Colors.blue[100],
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      FavoriteCard(product: product),
+                    ],
+                  ),
+                );
+              }).toList(),
+            ),
           );
         } else {
           return Text('Something went wrong.');
@@ -53,6 +52,7 @@ class _BottomFavoriteSheetState extends State<BottomFavoriteSheet> {
     );
   }
 }
+
 
 class FavoriteCard extends StatelessWidget {
   FavoriteCard({super.key, required this.product});
