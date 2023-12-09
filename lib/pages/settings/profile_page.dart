@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app_project/pages/settings/change_password_page.dart';
-import 'package:mobile_app_project/pages/settings/customer_support_page.dart';
-import 'settings_page.dart';
-import 'orders_page.dart';
+import 'package:mobile_app_project/pages/settings/profile/change_password_page.dart';
+import 'package:mobile_app_project/pages/settings/profile/customer_support_page.dart';
+import 'profile/settings_page.dart';
+import 'profile/orders_page.dart';
 import 'payment_methods_page.dart';
-import 'customer_support_page.dart';
+import 'profile/customer_support_page.dart';
 import 'user_information.dart';
 
 class ProfilePage extends StatelessWidget {

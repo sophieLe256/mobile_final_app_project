@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../product/DUMMY_PRODUCTS.dart';
+import '../product/DUMMY_MODELS.dart';
 import 'package:mobile_app_project/product/bloc/product_bloc.dart';
 import 'package:mobile_app_project/product/product_repo.dart';
 import 'package:mobile_app_project/pages/itemPage.dart';

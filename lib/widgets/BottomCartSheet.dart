@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_app_project/pages/itemPage.dart';
-import 'package:mobile_app_project/product/DUMMY_PRODUCTS.dart';
+import 'package:mobile_app_project/product/DUMMY_MODELS.dart';
 import 'package:mobile_app_project/product/bloc/product_bloc.dart';
 
 import '../pages/checkout_page.dart';
@@ -58,8 +58,10 @@ class _BottomCartSheetState extends State<BottomCartSheet> {
             content: Text("Product removed from cart")));
       } else {}
     }
-
+  /// fucntion here
     return BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
+      // right here
+      double discount = 100.00;
       if (state is ProductLoading) {
         return Center(
           child: CircularProgressIndicator(),
@@ -68,8 +70,13 @@ class _BottomCartSheetState extends State<BottomCartSheet> {
       if (state is ProductLoaded) {
         List<Product> cartList = state.products
             .where((products) =>
-                products.cart.contains(FirebaseAuth.instance.currentUser!.uid))
+                products.cart.contains(FirebaseAuth.instance.currentUser!.uid))              
             .toList();
+            List<Product> sortedList = state.products
+            .where((products) =>
+                products.name.contains("key"))              
+            .toList();
+            // render UI
         return Material(
           child: Container(
             height: 600,

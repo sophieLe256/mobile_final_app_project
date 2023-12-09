@@ -32,20 +32,6 @@ class Product extends Equatable {
     required this.cart,
   });
 
-  // static Product fromSnapshot(DocumentSnapshot doc) {
-  //   Product product = Product(
-  //       quantity: doc["quantity"],
-  //       reviewTotal: doc["reviewTotal"],
-  //       reviewCount: doc["reviewCount"],
-  //       name: doc["name"],
-  //       category: doc["category"],
-  //       img: doc["img"],
-  //       price: doc["price"],
-  //       description: doc["description"],
-  //       seller: doc["seller"],
-  //       isRecommended: doc["isRecommended"]);
-  //   return product;
-  // }
   static Product fromSnapshot(DocumentSnapshot<Map<String, dynamic>> doc) {
     Map<String, dynamic> data = doc.data() ?? {};
     return Product(
@@ -68,6 +54,7 @@ class Product extends Equatable {
           : data["cart"].map<String>((i) => i as String).toList(),
     );
   }
+  
 
   @override
   List<Object?> get props => [
@@ -246,4 +233,54 @@ class Product extends Equatable {
       cart: [],
     ),
   ];
+}
+
+
+
+
+// for user models
+class MyUser {
+  String? userID;
+  String? email;
+  String? name;
+  String? pictureCode;
+  String? chats;
+  String? contacts;
+  String? tasks;
+  MyUser(
+      {this.userID,
+        this.email,
+        this.name,
+        this.pictureCode,
+        this.chats,
+        this.contacts,
+        this.tasks});
+
+  //Firebase Cloud Data Decode
+  factory MyUser.fromFirestore(
+      DocumentSnapshot<Map<String, dynamic>> snapshot) {
+    final data = snapshot.data();
+    return MyUser(
+      userID: data?['userID'],
+      email: data?['email'],
+      name: data?['name'],
+      pictureCode: data?['pictureCode'],
+      chats: data?['chats'],
+      contacts: data?['contacts'],
+      tasks: data?['tasks'],
+    );
+  }
+
+  //Firebase Cloud Data Encode
+  Map<String, dynamic> toFirestore() {
+    return {
+      if (userID != null) "userID": userID,
+      if (email != null) "email": email,
+      if (name != null) "name": name,
+      if (pictureCode != null) "pictureCode": pictureCode,
+      if (chats != null) "chats": chats,
+      if (contacts != null) "contacts": contacts,
+      if (tasks != null) "tasks": tasks,
+    };
+  }
 }

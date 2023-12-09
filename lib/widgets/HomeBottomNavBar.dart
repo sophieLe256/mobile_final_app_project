@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 
+import '../pages/promotion/promotion_page.dart';
 import '../pages/settings/profile_page.dart';
 import 'BottomCartSheet.dart';
 import 'BottomFavoriteSheet.dart';
@@ -21,13 +22,23 @@ class HomeBottomnavBar extends StatelessWidget {
           topRight: Radius.circular(25),
         ),
       ),
-      child: Row(
+     child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Icon(
-            Icons.category_outlined,
-            color: Colors.white,
-            size: 32,
+          InkWell(
+            onTap: () {
+              // Navigate to the PromotionPage when the icon is tapped
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => PromotionPage()),
+              );
+            },
+            child:
+            const Icon(
+              Icons.category_outlined,
+              color: Colors.white,
+              size: 32,
+            ),
           ),
           InkWell(
             onTap: () {

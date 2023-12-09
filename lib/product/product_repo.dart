@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:mobile_app_project/product/DUMMY_PRODUCTS.dart';
+import 'package:mobile_app_project/product/DUMMY_MODELS.dart';
 import 'package:mobile_app_project/product/base_product_repo.dart';
 
 class ProductRepo extends BaseProductRepo {

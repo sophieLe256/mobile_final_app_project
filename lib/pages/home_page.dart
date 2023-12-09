@@ -8,6 +8,7 @@ import 'package:mobile_app_project/widgets/AllItemWidget.dart';
 import 'package:mobile_app_project/widgets/HomeBottomNavBar.dart';
 import 'package:mobile_app_project/widgets/RowItemsWidget.dart';
 import 'package:provider/provider.dart';
+import 'package:getwidget/getwidget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -31,7 +32,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('SoleFusion Hub'),

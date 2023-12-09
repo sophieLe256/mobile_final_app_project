@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_app_project/product/DUMMY_PRODUCTS.dart';
+import 'package:mobile_app_project/product/DUMMY_MODELS.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 
 import 'BottomCartSheet.dart';

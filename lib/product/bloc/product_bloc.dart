@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:mobile_app_project/product/product_repo.dart';
 import "package:equatable/equatable.dart";
 import "package:bloc/bloc.dart";
-import 'package:mobile_app_project/product/DUMMY_PRODUCTS.dart';
+import 'package:mobile_app_project/product/DUMMY_MODELS.dart';
 
 part 'product_event.dart';
 part 'product_state.dart';

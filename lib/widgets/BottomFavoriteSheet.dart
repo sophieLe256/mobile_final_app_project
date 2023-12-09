@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_app_project/pages/itemPage.dart';
 import 'package:mobile_app_project/product/bloc/product_bloc.dart';
-import '../product/DUMMY_PRODUCTS.dart';
+import '../product/DUMMY_MODELS.dart';
 
 // Bottom Favorite Sheet
 
@@ -53,7 +53,6 @@ class _BottomFavoriteSheetState extends State<BottomFavoriteSheet> {
   }
 }
 
-
 class FavoriteCard extends StatelessWidget {
   FavoriteCard({super.key, required this.product});
 
@@ -74,7 +73,6 @@ class FavoriteCard extends StatelessWidget {
             duration: Duration(seconds: 1),
             content: Text("Product removed from favorites")));
       } else {}
-      
     }
 
     return Material(
@@ -138,7 +136,7 @@ class FavoriteCard extends StatelessWidget {
                         product.name,
                         style: TextStyle(
                           color: Color(0xFF475269),
-                          fontSize: 22,
+                          fontSize: 20,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -202,18 +200,23 @@ class FavoriteCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [
                             BoxShadow(
-                                color: Colors.purple.withOpacity(0.4),
-                                blurRadius: 5,
-                                spreadRadius: 1),
+                              color: Colors.purple.withOpacity(0.4),
+                              blurRadius: 5,
+                              spreadRadius: 1,
+                            ),
                           ],
                         ),
-                        child: IconButton(
-                          icon: Icon(Icons.favorite),
-                          color: Colors.red,
-                          iconSize: 25,
-                          onPressed: () {
-                            removeFav(product: product);
-                          },
+                        child: SizedBox(
+                          width: 40, // Adjust width as needed
+                          height: 40, // Adjust height as needed
+                          child: IconButton(
+                            icon: Icon(Icons.favorite),
+                            color: Colors.red,
+                            iconSize: 20, // Adjust icon size as needed
+                            onPressed: () {
+                              removeFav(product: product);
+                            },
+                          ),
                         ),
                       ),
                       const Spacer(),
