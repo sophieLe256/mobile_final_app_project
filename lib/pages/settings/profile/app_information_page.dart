@@ -58,7 +58,7 @@ class AppInformationPage extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () => _showUpdateDialog(context),
-              child: const Text('Check for Updates'),
+              child: const Text('Check for Updates', style: TextStyle(color: Color(0xFF475269), fontWeight:FontWeight.w700),),
             ),
           ],
         ),

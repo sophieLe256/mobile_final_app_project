@@ -88,7 +88,7 @@ var db = FirebaseFirestore.instance;
   // add-on
   myAppBar() {
     return AppBar(
-      title: const Text("User Information'"),
+      title: const Text("User Information"),
     );
   }
 
@@ -209,7 +209,7 @@ var db = FirebaseFirestore.instance;
           const SizedBox(height: 20),
             ElevatedButton(
               onPressed: saveChangeButton,
-            child: const Text('Save Changes'),
+            child: const Text('Save Changes', style: TextStyle(color: Color(0xFF475269), fontWeight: FontWeight.w700),),
             ),
           ],
         ),

@@ -110,7 +110,7 @@ class FavoriteCard extends StatelessWidget {
                         height: 90,
                         width: 110,
                         decoration: BoxDecoration(
-                          color: const Color(0xFF475269),
+                         
                           borderRadius: BorderRadius.circular(5),
                         ),
                       ),
@@ -142,22 +142,7 @@ class FavoriteCard extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          // Container(
-                          //   padding: const EdgeInsets.all(5),
-                          //   decoration: BoxDecoration(
-                          //     color: Colors.white,
-                          //     borderRadius: BorderRadius.circular(10),
-                          //     boxShadow: [
-                          //       BoxShadow(
-                          //         color:
-                          //             const Color(0xFF475269).withOpacity(0.3),
-                          //         blurRadius: 5,
-                          //         spreadRadius: 1,
-                          //       ),
-                          //     ],
-                          //   ),
-                          //   child: const Icon(CupertinoIcons.minus, size: 18),
-                          // ),
+                        
                           Container(
                             margin: const EdgeInsets.symmetric(horizontal: 10),
                             child: Text(
@@ -169,22 +154,7 @@ class FavoriteCard extends StatelessWidget {
                               ),
                             ),
                           ),
-                          // Container(
-                          //   padding: const EdgeInsets.all(5),
-                          //   decoration: BoxDecoration(
-                          //     color: Colors.white,
-                          //     borderRadius: BorderRadius.circular(10),
-                          //     boxShadow: [
-                          //       BoxShadow(
-                          //         color:
-                          //             const Color(0xFF475269).withOpacity(0.3),
-                          //         blurRadius: 5,
-                          //         spreadRadius: 1,
-                          //       ),
-                          //     ],
-                          //   ),
-                          //   child: const Icon(CupertinoIcons.plus, size: 18),
-                          // ),
+                          
                         ],
                       )
                     ],

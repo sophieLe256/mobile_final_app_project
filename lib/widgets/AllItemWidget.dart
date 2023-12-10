@@ -6,7 +6,7 @@ import 'package:mobile_app_project/product/bloc/product_bloc.dart';
 import 'package:mobile_app_project/product/product_repo.dart';
 import 'package:mobile_app_project/pages/itemPage.dart';
 
-// 4 Item image below the scrolling row image
+// // 4 Item image below the scrolling row image
 class AllItemsWidget extends StatelessWidget {
   const AllItemsWidget({
     Key? key,
@@ -31,6 +31,9 @@ class AllItemsWidget extends StatelessWidget {
   }
 }
 
+
+
+
 class ProductCard extends StatelessWidget {
   const ProductCard({
     Key? key,
@@ -42,8 +45,8 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 15, right: 15),
-      margin: const EdgeInsets.all(8),
+      padding: const EdgeInsets.only(left: 15, right: 15, top: 5),
+      margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -67,45 +70,54 @@ class ProductCard extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(10),
-              child: Image.asset(
-                product.img,
-                height: 120,
-                width: 120,
+              child: Center(
+                child: Image.asset(
+                  product.img,
+                  height: 150,
+                  width: 150,
+                ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: Text(
-                product.name,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF475269),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Text(
+                  product.name,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF475269),
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
                 ),
-                maxLines: 2,
+              ),
+            ),
+            Center(
+              child: Text(
+                "New ${product.category} Shoes",
+                style: TextStyle(
+                  fontSize: 13,
+                  color: const Color(0xFF475269).withOpacity(0.7),
+                ),
+                maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            Text(
-              "New ${product.category} Shoes",
-              style: TextStyle(
-                fontSize: 13,
-                color: const Color(0xFF475269).withOpacity(0.7),
+            Center(
+              child: Text(
+                "\$${product.price}",
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.redAccent,
+                ),
               ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "\$${product.price}",
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.redAccent,
-                  ),
-                ),
                 Container(
                   padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
@@ -126,3 +138,4 @@ class ProductCard extends StatelessWidget {
     );
   }
 }
+

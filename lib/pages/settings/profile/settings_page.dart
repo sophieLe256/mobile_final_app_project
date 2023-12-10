@@ -14,10 +14,10 @@ class SettingsPage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          UserInformationSection(),
-          CustomerSupportSection(),
+          // UserInformationSection(),
+          // CustomerSupportSection(),
           AppFeaturesIntegrationSection(),
-          AccountManagementSection(),
+          // AccountManagementSection(),
           PolicySection(),
         ],
       ),
@@ -39,44 +39,6 @@ class UserInformationSection extends StatelessWidget {
           // Navigate to the page that shows the list of all orders
           Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => ProfilePage()), // Replace with your OrdersPage
-          );
-        },
-      ),
-    );
-  }
-}
-
-class AccountManagementSection extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.all(12.0),
-      child: ListTile(
-        title: Text("Change Password"),
-        trailing: Icon(Icons.password),
-        onTap: () {
-          // Navigate to payment methods page
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => ChangePasswordPage()),
-          );
-        },
-      ),
-    );
-  }
-}
-
-class CustomerSupportSection extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.all(12.0),
-      child: ListTile(
-        title: Text("Customer Support"),
-        trailing: Icon(Icons.contact_support_outlined),
-        onTap: () {
-          // Navigate to customer support page
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => CustomerSupportPage()), // Replace with your OrdersPage
           );
         },
       ),

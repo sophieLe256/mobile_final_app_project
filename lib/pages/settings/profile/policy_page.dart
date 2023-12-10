@@ -58,7 +58,7 @@ By using the SoleFusion Hub app, you agree to our End-User License Agreement whi
             Center(
               child: ElevatedButton(
                 onPressed: () => _showAgreementConfirmation(context),
-                child: const Text('Agree to Policy'),
+                child: const Text('Agree to Policy', style: TextStyle(color: Color(0xFF475269), fontWeight:FontWeight.w700),),
               ),
             ),
           ],

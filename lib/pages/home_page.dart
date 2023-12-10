@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mobile_app_project/pages/catalog/kids_clothing_page.dart';
 import 'package:mobile_app_project/pages/catalog/kids_jordan_shoe_page.dart';
+import 'package:mobile_app_project/pages/catalog/kids_shoes_page.dart';
 import 'package:mobile_app_project/pages/catalog/men_clothing_page.dart';
 import 'package:mobile_app_project/pages/catalog/women_clothing_page.dart';
 import 'package:mobile_app_project/product/DUMMY_MODELS.dart';
@@ -256,7 +257,7 @@ class _HomePageState extends State<HomePage> {
                 onTap: () {
                  Navigator.of(context).push(
                     MaterialPageRoute(
-                        builder: (context) => KidsJordanShoesPage()),
+                        builder: (context) => KidsShoesPage()),
                   );
                 },
                 // Add more subcategories for Kids as needed

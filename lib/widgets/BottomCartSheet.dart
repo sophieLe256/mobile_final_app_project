@@ -654,7 +654,8 @@ class _BottomCartSheetState extends State<BottomCartSheet> {
                                                   const EdgeInsets.symmetric(
                                                       horizontal: 10),
                                               child: Text(
-                                                  "${cartList[i].quantity}",
+                                                  // "${cartList[i].quantity}",
+                                                  "1",
                                                   style: TextStyle(
                                                     color: Color(0xFF475269),
                                                     fontSize: 18,

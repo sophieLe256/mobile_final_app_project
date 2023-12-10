@@ -19,7 +19,6 @@ class ProfilePage extends StatelessWidget {
           UserInformationSection(),
           OrderHistorySection(),
           PaymentMethodsSection(),
-          WishlistFavoritesSection(),
           CustomerSupportSection(),
           AppFeaturesIntegrationSection(),
         ],
@@ -36,7 +35,7 @@ class UserInformationSection extends StatelessWidget {
     return Card(
       margin: EdgeInsets.all(8.0), // Add some margin to the card
       child: ListTile(
-        title: Text('User Information'),
+        title: Text("User Information"),
         trailing: Icon(Icons.person),
         onTap: () {
           // Navigate to the page that shows the list of all orders
@@ -91,7 +90,9 @@ class OrderHistorySection extends StatelessWidget {
 class PaymentMethodsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    
     return Card(
+      margin: EdgeInsets.all(8.0),
       child: ListTile(
         title: Text("Payment Methods"),
         trailing: Icon(Icons.add_card),
@@ -106,25 +107,12 @@ class PaymentMethodsSection extends StatelessWidget {
   }
 }
 
-class WishlistFavoritesSection extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        title: Text("Wishlist and Favorites"),
-        trailing: Icon(Icons.favorite),
-        onTap: () {
-          // Navigate to wishlist/favorites page
-        },
-      ),
-    );
-  }
-}
 
 class CustomerSupportSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: EdgeInsets.all(8.0),
       child: ListTile(
         title: Text("Customer Support"),
         trailing: Icon(Icons.contact_support_outlined),
@@ -143,6 +131,7 @@ class AppFeaturesIntegrationSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: EdgeInsets.all(8.0),
       child: ListTile(
         title: Text("App Settings"),
         trailing: Icon(Icons.settings),
