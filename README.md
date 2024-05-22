@@ -3,13 +3,12 @@
 [![Maintainability](https://img.shields.io/badge/Maintainability-100%25-brightgreen.svg?style=flat-square)](https://codeclimate.com/github/username/repository)
 
 ## :globe_with_meridians: Screenshots
-![figma](https://github.com/sophieLe256/mobile_final_app_project/assets/102685323/127d9945-c5d7-47b3-99cf-c6d8d402b24f)
+![solehub](https://github.com/sophieLe256/mobile_final_app_project/assets/102685323/b2a6544f-a9c8-45b9-9efd-ee5a50e00a74)
 
 ## :computer: Description
 Welcome to the ***SoleFusion Hub*** ! 
-- Developed a mobile shopping app using Flutter, featuring a collection of shoes available for purchase, user authentication, and favorite
-item functionality integrated with Firebase.
-- Implemented user-friendly login/logout features and Firebase integration for streamlined authentication and data management within the app.
+- Developed a mobile shopping app using **Flutter**, featuring a collection of shoes available for purchase, user authentication, and favorite item functionality integrated with Firebase.
+- Implemented user-friendly login/logout features and **Firebase** integration for streamlined authentication and data management within the app.
 
 ## :iphone: Features
 - **User Authentication:** Seamless user login and registration using Firebase Authentication.
