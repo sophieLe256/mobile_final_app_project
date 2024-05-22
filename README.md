@@ -3,7 +3,7 @@
 [![Maintainability](https://img.shields.io/badge/Maintainability-100%25-brightgreen.svg?style=flat-square)](https://codeclimate.com/github/username/repository)
 
 ## :globe_with_meridians: Screenshots
-<img width="843" alt="image" src="https://github.com/sophieLe256/mobile_final_app_project/assets/102685323/dc0c6aa5-1fe5-4d9c-a241-a46102968a30">
+![figma](https://github.com/sophieLe256/mobile_final_app_project/assets/102685323/127d9945-c5d7-47b3-99cf-c6d8d402b24f)
 
 ## :computer: Description
 Welcome to the ***SoleFusion Hub*** ! 
